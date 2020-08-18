@@ -356,7 +356,7 @@ function _onReceive(data) {
      * if we do not expect this data
      * raise an error
      */
-    if (!transaction.lengthUnknown && data.length !== transaction.nextLength) {
+    if (!transaction.lengthUnknown && data.length < transaction.nextLength) {
         error = "Data length error, expected " +
             transaction.nextLength + " got " + data.length;
         next(new Error(error));
@@ -367,7 +367,7 @@ function _onReceive(data) {
      * if we do not expect this message
      * raise an error
      */
-    if (address !== transaction.nextAddress || code !== transaction.nextCode) {
+    if (address != transaction.nextAddress || code != transaction.nextCode) {
         error = "Unexpected data error, expected " +
             transaction.nextAddress + " got " + address;
         next(new Error(error));
